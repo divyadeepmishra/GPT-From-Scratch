@@ -31,6 +31,9 @@ with torch.no_grad():
         next_index = torch.multinomial(probs, num_samples=1)
         next_token = indices.gather(-1, next_index)
         tokens = torch.cat([tokens, next_token], dim=1)
+output_text = tokenizer.decode(tokens[0].tolist())
 
 print()
-print(tokenizer.decode(tokens[0].tolist()))
+print(output_text)
+with open("outputs/sample.txt", "w", encoding="utf-8") as file:
+    file.write(output_text)
