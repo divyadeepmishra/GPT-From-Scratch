@@ -1,0 +1,9 @@
+import torch.nn as nn
+
+class LayerNorm(nn.Module):
+    def __init__(self, config):
+        super().__init__()
+        self.norm = nn.LayerNorm(config.embed_dim)
+
+    def forward(self, x):
+        return self.norm(x)
