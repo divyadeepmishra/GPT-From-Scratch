@@ -1,20 +1,12 @@
 from pathlib import Path
 from datasets import load_dataset
 
-# ----------------------------
-# Configuration
-# ----------------------------
-
 MAX_SIZE_MB = 8
 
 RAW_DIR = Path("data/raw")
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 
 CORPUS_PATH = RAW_DIR / "corpus.txt"
-
-# ----------------------------
-# Load TinyStories (Streaming)
-# ----------------------------
 
 dataset = load_dataset(
     "roneneldan/TinyStories",

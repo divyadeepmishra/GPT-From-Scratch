@@ -1,0 +1,6 @@
+{
+    "vocab_size": 50257,
+    "total_tokens": 1465982,
+    "train_tokens": 1319383,
+    "validation_tokens": 146599
+}
