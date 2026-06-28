@@ -12,10 +12,10 @@ class Trainer:
         self.config = config
         torch.manual_seed(config.seed)
 
-        if torch.backends.mps.is_available():
-            torch.mps.manual_seed(config.seed)
-        else:
+        if torch.cuda.is_available():
             torch.cuda.manual_seed_all(config.seed)
+        elif torch.backends.mps.is_available():
+            torch.mps.manual_seed(config.seed)
 
         self.device = torch.device(config.device)
         self.model = MiniGPT(config).to(self.device)
