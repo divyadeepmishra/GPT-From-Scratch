@@ -4,6 +4,8 @@ from torch.utils.data import DataLoader
 from config import GPTConfig
 from dataset import GPTDataset
 from model import MiniGPT
+from tqdm import tqdm
+from pathlib import Path
 
 class Trainer:
     def __init__(self, config):
@@ -12,6 +14,8 @@ class Trainer:
 
         if torch.backends.mps.is_available():
             torch.mps.manual_seed(config.seed)
+        else:
+            torch.cuda.manual_seed_all(config.seed)
 
         self.device = torch.device(config.device)
         self.model = MiniGPT(config).to(self.device)
@@ -24,12 +28,14 @@ class Trainer:
 
     def train(self):
         print(f"\nTraining on {self.device}\n")
+        best_val_loss = float("inf")
 
         for epoch in range(self.config.epochs):
             self.model.train()
             train_loss = 0.0
+            progress_bar = tqdm(self.train_loader, desc=f"Epoch {epoch+1}/{self.config.epochs}", leave=False)
 
-            for x, y in self.train_loader:
+            for x, y in progress_bar:
                 x = x.to(self.device)
                 y = y.to(self.device)
                 logits = self.model(x)
@@ -40,14 +46,18 @@ class Trainer:
                 loss.backward()
                 self.optimizer.step()
                 train_loss += loss.item()
+                progress_bar.set_postfix(loss=f"{loss.item():.4f}")
 
             avg_train_loss = train_loss / len(self.train_loader)
             val_loss = self.validate()
-            print(f"Epoch [{epoch+1}/{self.config.epochs}] | "f"Train Loss: {avg_train_loss:.4f} | "f"Validation Loss: {val_loss:.4f}")
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+                Path("checkpoints").mkdir(exist_ok=True)
+                torch.save(self.model.state_dict(), "checkpoints/minigpt.pt")
 
-        torch.save(self.model.state_dict(), "minigpt.pt")
+        print(f"Epoch [{epoch+1}/{self.config.epochs}] | "f"Train Loss: {avg_train_loss:.4f} | "f"Validation Loss: {val_loss:.4f}")
         print("\nTraining Complete!")
-        print("Model saved as minigpt.pt")
+        print("Best model saved as checkpoints/minigpt.pt")
 
     @torch.no_grad()
     def validate(self):
