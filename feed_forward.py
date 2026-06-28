@@ -9,5 +9,7 @@ class FeedForward(nn.Module):
             nn.Linear(config.embed_dim * config.mlp_ratio, config.embed_dim),
             nn.Dropout(config.dropout)
         )
-        def forward(self, x):
-            return self.network(x)
+
+
+    def forward(self, x):
+        return self.network(x)

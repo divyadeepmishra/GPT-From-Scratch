@@ -20,6 +20,16 @@ class MultiHeadAttention(nn.Module):
 
         self.dropout = nn.Dropout(config.dropout)
 
+        self.register_buffer(
+            "mask",
+            torch.tril(
+                torch.ones(
+                    config.block_size,
+                    config.block_size
+                )
+            )
+        )
+
     def forward(self, x):
         B, T, C = x.shape
 
@@ -33,7 +43,7 @@ class MultiHeadAttention(nn.Module):
 
         scores = (Q @ K.transpose(-2,-1)) / (self.head_dim ** 0.5)
 
-        mask = torch.tril(torch.ones(T, T, device=x.device))
+        mask = self.mask[:T, :T]
 
         scores = scores.masked_fill(mask == 0, float("-inf"))
 
