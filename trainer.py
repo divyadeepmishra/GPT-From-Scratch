@@ -79,4 +79,5 @@ class Trainer:
 if __name__ == "__main__":
     config = GPTConfig()
     trainer = Trainer(config)
+    print(f"Total Parameters: {sum(p.numel() for p in trainer.model.parameters()):,}")
     trainer.train()
