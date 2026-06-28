@@ -45,7 +45,7 @@ class MiniGPT(nn.Module):
         x = self.position_embedding(x)
         for block in self.blocks:
             x = block(x)
-        x = self.ln_f(x)
+        x = self.final_norm(x)
 
         logits = self.lm_head(x)
         return logits
