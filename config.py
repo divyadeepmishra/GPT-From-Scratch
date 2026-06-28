@@ -5,7 +5,6 @@ from dataclasses import dataclass
 class GPTConfig:
 
     vocab_size = 50257  #Vocabulary
-
     block_size = 128    #Max content length
 
     #Transformer
@@ -14,7 +13,6 @@ class GPTConfig:
     embed_dim = 512
 
     mlp_ratio = 4   # feed forward
-
     dropout = 0.1   # regularization
 
     #Training
