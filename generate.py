@@ -3,6 +3,7 @@ import torch.nn.functional as F
 from config import GPTConfig
 from model import MiniGPT
 from tokenizer import Tokenizer
+from pathlib import Path
 
 config = GPTConfig()
 device = torch.device(config.device)
@@ -35,5 +36,6 @@ output_text = tokenizer.decode(tokens[0].tolist())
 
 print()
 print(output_text)
+Path("outputs").mkdir(exist_ok=True)
 with open("outputs/sample.txt", "w", encoding="utf-8") as file:
     file.write(output_text)
