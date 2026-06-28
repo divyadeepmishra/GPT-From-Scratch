@@ -500,14 +500,6 @@ If you notice a bug, have an idea for a cleaner implementation, or want to exper
 
 ---
 
-# License
-
-This project is released under the MIT License.
-
-Feel free to use it for learning, experimentation, or as a starting point for your own ideas.
-
----
-
 ## Final Thoughts
 
 Building a language model from scratch is less about recreating state-of-the-art systems and more about understanding the ideas that make them possible.
