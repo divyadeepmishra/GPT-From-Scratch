@@ -291,7 +291,7 @@ The final model was trained using the following configuration.
 
 | Parameter | Value |
 |-----------|------:|
-| Parameters | **44,712,448** |
+| Parameters | **≈ 44.7M** |
 | Vocabulary Size | 50,257 |
 | Context Length | 128 Tokens |
 | Layers | 6 |
@@ -489,19 +489,6 @@ Some ideas include:
 - Interactive web interface using Gradio or Streamlit
 
 Keeping these improvements separate allows Version 1 to remain a clean educational implementation while future versions focus on performance and experimentation.
-
----
-
-# Acknowledgements
-
-This project was inspired by the many researchers and educators who have openly shared their work on Transformers and large language models.
-
-Special thanks to:
-
-- The PyTorch team for building an excellent deep learning framework.
-- OpenAI for releasing `tiktoken`, which makes GPT-compatible tokenization straightforward.
-- The TinyStories authors for providing a compact dataset suitable for educational language model training.
-- The open-source community for making modern AI research more accessible.
 
 ---
 
