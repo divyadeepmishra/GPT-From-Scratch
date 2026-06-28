@@ -11,8 +11,8 @@ class MiniGPT(nn.Module):
         self.token_embedding = TokenEmbedding(config.vocab_size, config.embed_dim)
         self.position_embedding = PositionalEncoding(config.block_size, config.embed_dim)
 
-        self.blocks = nn.Sequential(
-            *[
+        self.blocks = nn.ModuleList(
+            [
                 TransformerBlock(config)
                 for _ in range(config.n_layers)
             ]
@@ -43,8 +43,9 @@ class MiniGPT(nn.Module):
     def forward(self, token_ids):
         x = self.token_embedding(token_ids)
         x = self.position_embedding(x)
-        x = self.blocks(x)
-        x = self.final_norm(x)
+        for block in self.blocks:
+            x = block(x)
+        x = self.ln_f(x)
 
         logits = self.lm_head(x)
         return logits
