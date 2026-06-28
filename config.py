@@ -8,17 +8,17 @@ class GPTConfig:
     block_size = 128    #Max content length
 
     #Transformer
-    n_layers = 4
-    n_heads = 4
-    embed_dim = 256
+    n_layers = 6
+    n_heads = 8
+    embed_dim = 512
 
     mlp_ratio = 4   # feed forward
     dropout = 0.1   # regularization
 
     #Training
-    batch_size = 16
+    batch_size = 32
     learning_rate = 3e-4
-    epochs = 3
+    epochs = 5
     seed = 42
 
     #Generation
