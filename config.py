@@ -18,7 +18,7 @@ class GPTConfig:
     #Training
     batch_size = 32
     learning_rate = 3e-4
-    epochs = 5
+    epochs = 10
     seed = 42
 
     #Generation
